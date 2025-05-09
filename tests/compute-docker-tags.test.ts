@@ -2,7 +2,6 @@ import core from '@actions/core';
 import github from '@actions/github';
 import type { Context } from '@actions/github/lib/context';
 import { expect, test, vi } from 'vitest';
-
 import { run } from '../src/compute-docker-tags';
 
 test('Compute Docker Tags', async () => {
