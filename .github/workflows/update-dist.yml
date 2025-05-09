@@ -39,7 +39,7 @@ jobs:
         id: current-date
         uses: mburumaxwell/actions/current-date@main
 
-      - name: Create Pull Request (frontend)
+      - name: Create Pull Request
         if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/create-pull-request@v7
         with:

@@ -11,7 +11,7 @@ Outputs the current date and time using a customizable format. Supports ISO-styl
   with:
     format: 'yyyy-MM-dd' # optional, default: "MMMM dd, yyyy"
 
-- name: Create Pull Request (frontend)
+- name: Create Pull Request
   if: ${{ github.event_name != 'pull_request' }}
   uses: peter-evans/create-pull-request@v7
   with:
