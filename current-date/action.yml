@@ -13,4 +13,4 @@ outputs:
 
 runs:
   using: node20
-  main: dist/current-date.js
+  main: ../dist/current-date.js
