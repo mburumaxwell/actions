@@ -1,5 +1,5 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
+import core from '@actions/core';
+import github from '@actions/github';
 
 try {
   const { ref } = github.context;
@@ -22,7 +22,7 @@ try {
 
   // result is list or CSV
   core.info(`Computed tags: "${tags.join(',')}"`);
-  core.setOutput('tags', tags.join(','))
+  core.setOutput('tags', tags.join(','));
 } catch (error) {
   core.setFailed((error as Error).message);
 }

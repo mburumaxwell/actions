@@ -5,18 +5,18 @@ A GitHub Action that computes Docker image tags based on the current Git referen
 ## 🔧 Inputs
 
 | Name          | Description                                                              | Required |
-|---------------|--------------------------------------------------------------------------|----------|
-| `image`       | Full image name (e.g. `ghcr.io/org/app`, `docker.io/user/app`, or `app`) | ✅ Yes    |
-| `short_sha`   | Short Git commit SHA (e.g. `abc1234`)                                    | ✅ Yes    |
-| `full_semver` | Full semantic version (e.g. `1.2.3`)                                     | ✅ Yes    |
-| `major`       | Major version (e.g. `1`)                                                 | ✅ Yes    |
-| `minor`       | Minor version (e.g. `2`)                                                 | ✅ Yes    |
+| ------------- | ------------------------------------------------------------------------ | -------- |
+| `image`       | Full image name (e.g. `ghcr.io/org/app`, `docker.io/user/app`, or `app`) | ✅ Yes   |
+| `short_sha`   | Short Git commit SHA (e.g. `abc1234`)                                    | ✅ Yes   |
+| `full_semver` | Full semantic version (e.g. `1.2.3`)                                     | ✅ Yes   |
+| `major`       | Major version (e.g. `1`)                                                 | ✅ Yes   |
+| `minor`       | Minor version (e.g. `2`)                                                 | ✅ Yes   |
 
 ## 📤 Outputs
 
-| Name    | Description                                              |
-|---------|----------------------------------------------------------|
-| `tags`  | Comma-separated list of Docker tags (e.g. `tag1,tag2`)   |
+| Name   | Description                                            |
+| ------ | ------------------------------------------------------ |
+| `tags` | Comma-separated list of Docker tags (e.g. `tag1,tag2`) |
 
 ## 🧠 Tag Generation Logic
 
@@ -43,7 +43,7 @@ steps:
   - name: Install GitVersion
     uses: gittools/actions/gitversion/setup@v3
     with:
-        versionSpec: '6.0.x'
+      versionSpec: '6.0.x'
 
   - name: Determine Version
     id: gitversion

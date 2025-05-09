@@ -1,2 +1,2 @@
 [codespell]
-skip = .git,dist
+skip = .git,dist,pnpm-lock.yaml
