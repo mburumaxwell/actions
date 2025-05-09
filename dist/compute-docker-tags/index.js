@@ -29919,19 +29919,49 @@ function wrappy (fn, cb) {
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(7484));
-const github_1 = __importDefault(__nccwpck_require__(3228));
+const core = __importStar(__nccwpck_require__(7484));
+const github = __importStar(__nccwpck_require__(3228));
 try {
-    const { ref } = github_1.default.context;
-    const image = core_1.default.getInput('image', { required: true });
-    const shortSha = core_1.default.getInput('short_sha', { required: true });
-    const fullSemVer = core_1.default.getInput('full_semver', { required: true });
-    const major = core_1.default.getInput('major', { required: true });
-    const minor = core_1.default.getInput('minor', { required: true });
+    const { ref } = github.context;
+    const image = core.getInput('image', { required: true });
+    const shortSha = core.getInput('short_sha', { required: true });
+    const fullSemVer = core.getInput('full_semver', { required: true });
+    const major = core.getInput('major', { required: true });
+    const minor = core.getInput('minor', { required: true });
     let tags = [`${image}:${fullSemVer}`];
     if (ref === 'refs/heads/main' || ref.startsWith('refs/tags/')) {
         tags.push(`${image}:latest`);
@@ -29942,11 +29972,11 @@ try {
         tags.push(`${image}:${major}`);
     }
     // result is list or CSV
-    core_1.default.info(`Computed tags: "${tags.join(',')}"`);
-    core_1.default.setOutput('tags', tags.join(','));
+    core.info(`Computed tags: "${tags.join(',')}"`);
+    core.setOutput('tags', tags.join(','));
 }
 catch (error) {
-    core_1.default.setFailed(error.message);
+    core.setFailed(error.message);
 }
 
 
