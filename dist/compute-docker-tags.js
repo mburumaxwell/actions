@@ -23928,29 +23928,43 @@ var require_github = __commonJS({
 });
 
 // src/compute-docker-tags.ts
+var compute_docker_tags_exports = {};
+__export(compute_docker_tags_exports, {
+  run: () => run
+});
+module.exports = __toCommonJS(compute_docker_tags_exports);
 var core = __toESM(require_core());
 var github = __toESM(require_github());
-try {
-  const { ref } = github.context;
-  const image = core.getInput("image", { required: true });
-  const shortSha = core.getInput("short_sha", { required: true });
-  const fullSemVer = core.getInput("full_semver", { required: true });
-  const major = core.getInput("major", { required: true });
-  const minor = core.getInput("minor", { required: true });
-  let tags = [`${image}:${fullSemVer}`];
-  if (ref === "refs/heads/main" || ref.startsWith("refs/tags/")) {
-    tags.push(`${image}:latest`);
-    tags.push(`${image}:${shortSha}`);
+function run() {
+  try {
+    const { ref } = github.context;
+    const image = core.getInput("image", { required: true });
+    const shortSha = core.getInput("short_sha", { required: true });
+    const fullSemVer = core.getInput("full_semver", { required: true });
+    const major = core.getInput("major", { required: true });
+    const minor = core.getInput("minor", { required: true });
+    let tags = [`${image}:${fullSemVer}`];
+    if (ref === "refs/heads/main" || ref.startsWith("refs/tags/")) {
+      tags.push(`${image}:latest`);
+      tags.push(`${image}:${shortSha}`);
+    }
+    if (ref.startsWith("refs/tags/")) {
+      tags.push(`${image}:${major}.${minor}`);
+      tags.push(`${image}:${major}`);
+    }
+    core.info(`Computed tags: "${tags.join(",")}"`);
+    core.setOutput("tags", tags.join(","));
+  } catch (error) {
+    core.setFailed(error.message);
   }
-  if (ref.startsWith("refs/tags/")) {
-    tags.push(`${image}:${major}.${minor}`);
-    tags.push(`${image}:${major}`);
-  }
-  core.info(`Computed tags: "${tags.join(",")}"`);
-  core.setOutput("tags", tags.join(","));
-} catch (error) {
-  core.setFailed(error.message);
 }
+if (process.env.GITHUB_ACTIONS === "true") {
+  run();
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  run
+});
 /*! Bundled license information:
 
 undici/lib/fetch/body.js:
