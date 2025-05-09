@@ -1,8 +1,5 @@
 # Compute Docker Tags
 
-[![GitHub Action](https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/YOUR_REPO/test.yml?branch=main)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions)
-[![GitHub Marketplace](https://img.shields.io/badge/marketplace-compute--docker--tags-blue?logo=github)](https://github.com/marketplace/actions/compute-docker-tags)
-
 A GitHub Action that computes Docker image tags based on the current Git reference (branch or tag) and semantic version inputs. This action works with any container registry or for local-only builds by allowing you to specify the full image name.
 
 ## 🔧 Inputs
@@ -54,7 +51,7 @@ steps:
 
   - name: Compute Docker Tags
     id: docker_tags
-    uses: your-username/compute-docker-tags@v1
+    uses: mburumaxwell/actions/compute-docker-tags@main
     with:
       image: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
       short_sha: ${{ steps.gitversion.outputs.shortSha }}
