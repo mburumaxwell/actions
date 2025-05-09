@@ -1,8 +1,15 @@
 {
   "name": "mburumaxwell-actions",
-  "scripts": {},
+  "scripts": {
+    "compute-docker-tags": "npx ncc build src/compute-docker-tags.ts -o dist/compute-docker-tags --source-map",
+    "bundle": "npm run compute-docker-tags"
+  },
   "dependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "0.38.3",
+    "typescript": "5.8.3"
   }
 }

@@ -24,5 +24,5 @@ try {
   core.info(`Computed tags: "${tags.join(',')}"`);
   core.setOutput('tags', tags.join(','))
 } catch (error) {
-  core.setFailed(error.message);
+  core.setFailed((error as Error).message);
 }

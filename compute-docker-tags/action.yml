@@ -24,4 +24,4 @@ outputs:
 
 runs:
   using: node20
-  main: main.mjs
+  main: dist/compute-docker-tags/index.js
