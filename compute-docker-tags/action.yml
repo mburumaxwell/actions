@@ -1,0 +1,27 @@
+name: Compute Docker Tags
+description: Generates Docker image tags based on Git reference and semantic versioning.
+
+inputs:
+  image:
+    description: 'Full image name including registry/namespace if needed (e.g. `ghcr.io/user/app`, `app`)'
+    required: true
+  short_sha:
+    description: 'Short commit SHA (e.g. `abc1234`)'
+    required: true
+  full_semver:
+    description: 'Full semantic version (e.g. `1.2.3` or `1.2.3-ci.2`)'
+    required: true
+  major:
+    description: 'Major version (e.g. `1`)'
+    required: true
+  minor:
+    description: 'Minor version (e.g. `2`)'
+    required: true
+
+outputs:
+  tags:
+    description: 'Comma-separated list of computed Docker tags'
+
+runs:
+  using: node20
+  main: main.mjs
