@@ -3,6 +3,11 @@
 This repository contains reusable GitHub Actions published under [`mburumaxwell`](https://github.com/mburumaxwell).
 Each subdirectory defines an independent Action.
 
+## Available Actions
+
+| Action Directory                               | Description                                               |
+|------------------------------------------------|-----------------------------------------------------------|
+| [`compute-docker-tags`](./compute-docker-tags) | Generates Docker tags based on git ref and version inputs |
 
 ### License
 
