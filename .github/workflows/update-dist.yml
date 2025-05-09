@@ -1,0 +1,56 @@
+name: Lint & Test
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📥 Download deps
+        run: pnpm install
+
+      - name: 🛠️ Build
+        run: pnpm build
+
+      - name: Get current date
+        id: current-date
+        uses: mburumaxwell/actions/current-date@main
+
+      - name: Create Pull Request (frontend)
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          base: main
+          branch: 'update-dist'
+          commit-message: 'Update dist files'
+          title: 'Update dist files as of ${{ steps.current-date.outputs.date }}'
+          body: |
+            Update dist files.
+
+            These files are generated from the latest changes in the codebase.
+
+            Ref: ${{ github.sha }}
+          delete-branch: true

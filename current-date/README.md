@@ -9,7 +9,7 @@ Outputs the current date and time using a customizable format. Supports ISO-styl
   id: current-date
   uses: mburumaxwell/actions/current-date@main
   with:
-    format: "yyyy-MM-dd" # optional, default: "MMMM dd, yyyy"
+    format: 'yyyy-MM-dd' # optional, default: "MMMM dd, yyyy"
 
 - name: Create Pull Request (frontend)
   if: ${{ github.event_name != 'pull_request' }}
