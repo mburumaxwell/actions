@@ -8,6 +8,7 @@ Each subdirectory defines an independent Action.
 | Action Directory                               | Description                                               |
 | ---------------------------------------------- | --------------------------------------------------------- |
 | [`compute-docker-tags`](./compute-docker-tags) | Generates Docker tags based on git ref and version inputs |
+| [`current-date`](./current-date)               | Generates current date from the given format              |
 
 ### License
 

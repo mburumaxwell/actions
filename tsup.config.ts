@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   entry: [
     'src/compute-docker-tags.ts',
+    'src/current-date.ts',
     // add other independent scripts here
   ],
   outDir: 'dist',

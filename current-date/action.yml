@@ -1,0 +1,16 @@
+name: Current Date
+description: Outputs the current date and time using a custom format.
+
+inputs:
+  format:
+    description: Format string using date-fns (e.g. 'yyyy-MM-dd', 'MMMM dd, yyyy')
+    required: false
+    default: 'yyyy-MM-dd'
+
+outputs:
+  date:
+    description: The formatted current date string
+
+runs:
+  using: node20
+  main: dist/current-date.js
