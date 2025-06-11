@@ -1,0 +1,19 @@
+name: Generate VERSION file for Zephyr
+description: Reads version provided and generates a VERSION file for Zephyr.
+
+inputs:
+  version:
+    description: Version to be parsed. Must be a valid SemVer 2.0 value e.g. `3.1.0`, `3.1.0-alpha.4`, etc
+    required: true
+  destination:
+    description: The path to the VERSION file to be generated.
+    required: false
+    default: './VERSION'
+
+outputs:
+  contents:
+    description: The contents of the generated VERSION file.
+
+runs:
+  using: node20
+  main: ../dist/zephyr-version-file.js

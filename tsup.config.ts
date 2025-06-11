@@ -5,6 +5,7 @@ export default defineConfig({
     'src/compute-docker-tags.ts',
     'src/current-date.ts',
     'src/get-version.ts',
+    'src/zephyr-version-file.ts',
     // add other independent scripts here
   ],
   outDir: 'dist',
