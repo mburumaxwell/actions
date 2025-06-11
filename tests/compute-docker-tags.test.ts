@@ -28,12 +28,13 @@ test('Compute Docker Tags', async () => {
   vi.stubEnv('INPUT_FULL_SEMVER', '1.2.3');
   vi.stubEnv('INPUT_MAJOR', '1');
   vi.stubEnv('INPUT_MINOR', '2');
-  const exportSpy = vi.spyOn(core, 'setOutput');
+  const setOutput = vi.spyOn(core, 'setOutput');
+  const setFailed = vi.spyOn(core, 'setFailed');
 
   // exports tags based on a tag ref
   vi.spyOn(github, 'context', 'get').mockReturnValue({ ...defaultContext, ref: 'refs/tags/1.2.3' });
   run();
-  expect(exportSpy).toHaveBeenCalledWith(
+  expect(setOutput).toHaveBeenCalledWith(
     'tags',
     expect.stringMatching(
       [
@@ -50,7 +51,7 @@ test('Compute Docker Tags', async () => {
   vi.spyOn(github, 'context', 'get').mockReturnValue({ ...defaultContext, ref: 'refs/heads/main' });
   vi.stubEnv('INPUT_FULL_SEMVER', '1.2.4-ci.1');
   run();
-  expect(exportSpy).toHaveBeenCalledWith(
+  expect(setOutput).toHaveBeenCalledWith(
     'tags',
     expect.stringMatching(
       [
@@ -65,10 +66,11 @@ test('Compute Docker Tags', async () => {
   vi.spyOn(github, 'context', 'get').mockReturnValue({ ...defaultContext, ref: 'refs/heads/dev' });
   vi.stubEnv('INPUT_FULL_SEMVER', '1.2.4-ci.4');
   run();
-  expect(exportSpy).toHaveBeenCalledWith(
+  expect(setOutput).toHaveBeenCalledWith(
     'tags',
     expect.stringMatching(['ghcr.io/tesla/self-driving:1.2.4-ci.4'].join(',')),
   );
+  expect(setFailed).not.toHaveBeenCalled();
 
   vi.unstubAllEnvs();
 });
