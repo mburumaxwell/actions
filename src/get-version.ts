@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import { readFileSync } from 'node:fs';
+import * as semver from 'semver';
 
 export function run() {
   try {
@@ -12,6 +13,18 @@ export function run() {
 
     core.info(`Found version: "${version}"`);
     core.setOutput('version', version);
+
+    const parsed = semver.parse(version);
+    if (!parsed) {
+      throw new Error('Unable to parse version');
+    }
+
+    core.setOutput('major', parsed.major);
+    core.setOutput('minor', parsed.minor);
+    core.setOutput('patch', parsed.patch);
+    core.setOutput('build', parsed.build);
+    core.setOutput('prerelease', parsed.prerelease);
+
   } catch (err) {
     core.setFailed((err as Error).message);
   }

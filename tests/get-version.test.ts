@@ -16,6 +16,11 @@ describe('get-version action', () => {
     run();
 
     expect(setOutput).toHaveBeenCalledWith('version', '3.1.0-alpha.4');
+    expect(setOutput).toHaveBeenCalledWith('major', 3);
+    expect(setOutput).toHaveBeenCalledWith('minor', 1);
+    expect(setOutput).toHaveBeenCalledWith('patch', 0);
+    expect(setOutput).toHaveBeenCalledWith('build', []);
+    expect(setOutput).toHaveBeenCalledWith('prerelease', ['alpha', 4]);
     expect(setFailed).not.toHaveBeenCalled();
   });
 

@@ -10,6 +10,16 @@ inputs:
 outputs:
   version:
     description: The version field from the package.json file
+  major:
+    description: The major version number
+  minor:
+    description: The minor version number
+  patch:
+    description: The patch version number
+  build:
+    description: The build version number, if any
+  prerelease:
+    description: The prerelease version number
 
 runs:
   using: node20
