@@ -24,7 +24,6 @@ export function run() {
     core.setOutput('patch', parsed.patch);
     core.setOutput('build', parsed.build);
     core.setOutput('prerelease', parsed.prerelease);
-
   } catch (err) {
     core.setFailed((err as Error).message);
   }
