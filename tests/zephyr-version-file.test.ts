@@ -1,9 +1,14 @@
 import * as core from '@actions/core';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { run } from '../src/zephyr-version-file';
 
-vi.mock('fs'); // Mock the entire 'fs' module
+// Mock the fs module
+vi.mock('node:fs', () => ({
+  existsSync: vi.fn(),
+  rmSync: vi.fn(),
+  writeFileSync: vi.fn(),
+}));
 
 describe('zephyr-version-file action', () => {
   beforeEach(() => {
@@ -19,9 +24,6 @@ describe('zephyr-version-file action', () => {
     vi.stubEnv('INPUT_DESTINATION', './temp/1/VERSION');
     const setOutput = vi.spyOn(core, 'setOutput');
     const setFailed = vi.spyOn(core, 'setFailed');
-    const writeFileSync = vi.spyOn(fs, 'writeFileSync');
-    const existsSync = vi.spyOn(fs, 'existsSync');
-    const rmSync = vi.spyOn(fs, 'rmSync');
 
     run();
 
@@ -35,9 +37,9 @@ describe('zephyr-version-file action', () => {
     ].join('\n');
     expect(setOutput).toHaveBeenCalledWith('contents', contents);
     expect(setFailed).not.toHaveBeenCalled();
-    expect(writeFileSync).toHaveBeenCalledWith('./temp/1/VERSION', contents, 'utf-8');
-    expect(existsSync).toHaveBeenCalledWith('./temp/1/VERSION');
-    expect(rmSync).not.toHaveBeenCalled();
+    expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/1/VERSION', contents, 'utf-8');
+    expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/1/VERSION');
+    expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
   });
 
   it('works for valid complex version', () => {
@@ -45,9 +47,6 @@ describe('zephyr-version-file action', () => {
     vi.stubEnv('INPUT_DESTINATION', './temp/2/VERSION');
     const setOutput = vi.spyOn(core, 'setOutput');
     const setFailed = vi.spyOn(core, 'setFailed');
-    const writeFileSync = vi.spyOn(fs, 'writeFileSync');
-    const existsSync = vi.spyOn(fs, 'existsSync');
-    const rmSync = vi.spyOn(fs, 'rmSync');
 
     run();
 
@@ -61,9 +60,9 @@ describe('zephyr-version-file action', () => {
     ].join('\n');
     expect(setOutput).toHaveBeenCalledWith('contents', contents);
     expect(setFailed).not.toHaveBeenCalled();
-    expect(writeFileSync).toHaveBeenCalledWith('./temp/2/VERSION', contents, 'utf-8');
-    expect(existsSync).toHaveBeenCalledWith('./temp/2/VERSION');
-    expect(rmSync).not.toHaveBeenCalled();
+    expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/2/VERSION', contents, 'utf-8');
+    expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/2/VERSION');
+    expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
   });
 
   it('works for valid version with tweak', () => {
@@ -71,9 +70,6 @@ describe('zephyr-version-file action', () => {
     vi.stubEnv('INPUT_DESTINATION', './temp/3/VERSION');
     const setOutput = vi.spyOn(core, 'setOutput');
     const setFailed = vi.spyOn(core, 'setFailed');
-    const writeFileSync = vi.spyOn(fs, 'writeFileSync');
-    const existsSync = vi.spyOn(fs, 'existsSync');
-    const rmSync = vi.spyOn(fs, 'rmSync');
 
     run();
 
@@ -87,9 +83,9 @@ describe('zephyr-version-file action', () => {
     ].join('\n');
     expect(setOutput).toHaveBeenCalledWith('contents', contents);
     expect(setFailed).not.toHaveBeenCalled();
-    expect(writeFileSync).toHaveBeenCalledWith('./temp/3/VERSION', contents, 'utf-8');
-    expect(existsSync).toHaveBeenCalledWith('./temp/3/VERSION');
-    expect(rmSync).not.toHaveBeenCalled();
+    expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/3/VERSION', contents, 'utf-8');
+    expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/3/VERSION');
+    expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
   });
 
   it('fails for invalid version', () => {
