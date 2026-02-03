@@ -12,6 +12,9 @@ updates:
       interval: monthly
       time: '02:00'
     groups:
+      actions:
+        patterns:
+          - '@actions/*'
       prettier:
         patterns:
           - 'prettier'
