@@ -1,7 +1,11 @@
-import * as core from '@actions/core';
-import * as fs from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { run } from '../src/zephyr-version-file';
+
+vi.mock('@actions/core', () => ({
+  getInput: vi.fn((name: string) => process.env[`INPUT_${name.toUpperCase()}`] || ''),
+  setOutput: vi.fn(),
+  setFailed: vi.fn(),
+  info: vi.fn(),
+}));
 
 // Mock the fs module
 vi.mock('node:fs', () => ({
@@ -10,9 +14,13 @@ vi.mock('node:fs', () => ({
   writeFileSync: vi.fn(),
 }));
 
+import * as core from '@actions/core';
+import * as fs from 'node:fs';
+import { run } from '../src/zephyr-version-file';
+
 describe('zephyr-version-file action', () => {
   beforeEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
@@ -22,8 +30,6 @@ describe('zephyr-version-file action', () => {
   it('works for valid simple version', () => {
     vi.stubEnv('INPUT_VERSION', '3.0.0');
     vi.stubEnv('INPUT_DESTINATION', './temp/1/VERSION');
-    const setOutput = vi.spyOn(core, 'setOutput');
-    const setFailed = vi.spyOn(core, 'setFailed');
 
     run();
 
@@ -35,8 +41,8 @@ describe('zephyr-version-file action', () => {
       'EXTRAVERSION = ',
       '',
     ].join('\n');
-    expect(setOutput).toHaveBeenCalledWith('contents', contents);
-    expect(setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith('contents', contents);
+    expect(core.setFailed).not.toHaveBeenCalled();
     expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/1/VERSION', contents, 'utf-8');
     expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/1/VERSION');
     expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
@@ -45,8 +51,6 @@ describe('zephyr-version-file action', () => {
   it('works for valid complex version', () => {
     vi.stubEnv('INPUT_VERSION', '3.1.4-alpha.1');
     vi.stubEnv('INPUT_DESTINATION', './temp/2/VERSION');
-    const setOutput = vi.spyOn(core, 'setOutput');
-    const setFailed = vi.spyOn(core, 'setFailed');
 
     run();
 
@@ -58,8 +62,8 @@ describe('zephyr-version-file action', () => {
       'EXTRAVERSION = alpha.1',
       '',
     ].join('\n');
-    expect(setOutput).toHaveBeenCalledWith('contents', contents);
-    expect(setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith('contents', contents);
+    expect(core.setFailed).not.toHaveBeenCalled();
     expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/2/VERSION', contents, 'utf-8');
     expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/2/VERSION');
     expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
@@ -68,8 +72,6 @@ describe('zephyr-version-file action', () => {
   it('works for valid version with tweak', () => {
     vi.stubEnv('INPUT_VERSION', '3.1.4-alpha.1+1');
     vi.stubEnv('INPUT_DESTINATION', './temp/3/VERSION');
-    const setOutput = vi.spyOn(core, 'setOutput');
-    const setFailed = vi.spyOn(core, 'setFailed');
 
     run();
 
@@ -81,8 +83,8 @@ describe('zephyr-version-file action', () => {
       'EXTRAVERSION = alpha.1',
       '',
     ].join('\n');
-    expect(setOutput).toHaveBeenCalledWith('contents', contents);
-    expect(setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith('contents', contents);
+    expect(core.setFailed).not.toHaveBeenCalled();
     expect(vi.mocked(fs.writeFileSync)).toHaveBeenCalledWith('./temp/3/VERSION', contents, 'utf-8');
     expect(vi.mocked(fs.existsSync)).toHaveBeenCalledWith('./temp/3/VERSION');
     expect(vi.mocked(fs.rmSync)).not.toHaveBeenCalled();
@@ -90,12 +92,10 @@ describe('zephyr-version-file action', () => {
 
   it('fails for invalid version', () => {
     vi.stubEnv('INPUT_VERSION', 'abcd');
-    const setOutput = vi.spyOn(core, 'setOutput');
-    const setFailed = vi.spyOn(core, 'setFailed');
 
     run();
 
-    expect(setOutput).not.toHaveBeenCalled();
-    expect(setFailed).toHaveBeenCalled();
+    expect(core.setOutput).not.toHaveBeenCalled();
+    expect(core.setFailed).toHaveBeenCalled();
   });
 });
