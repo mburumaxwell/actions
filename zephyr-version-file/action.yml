@@ -15,5 +15,5 @@ outputs:
     description: The contents of the generated VERSION file.
 
 runs:
-  using: node20
+  using: node24
   main: ../dist/zephyr-version-file.js

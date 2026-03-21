@@ -23,5 +23,5 @@ outputs:
     description: 'Comma-separated list of computed Docker tags'
 
 runs:
-  using: node20
+  using: node24
   main: ../dist/compute-docker-tags.js

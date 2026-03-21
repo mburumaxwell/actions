@@ -12,5 +12,5 @@ outputs:
     description: The formatted current date string
 
 runs:
-  using: node20
+  using: node24
   main: ../dist/current-date.js

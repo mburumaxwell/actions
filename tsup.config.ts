@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   outDir: 'dist',
   format: 'cjs',
-  target: 'node20',
+  target: 'node24',
   platform: 'node',
   splitting: false,
   clean: true,

@@ -22,5 +22,5 @@ outputs:
     description: The prerelease version number
 
 runs:
-  using: node20
+  using: node24
   main: ../dist/get-version.js
