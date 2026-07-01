@@ -18,8 +18,8 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       semver:
-        specifier: 7.8.1
-        version: 7.8.1
+        specifier: 7.8.5
+        version: 7.8.5
     devDependencies:
       '@types/node':
         specifier: 25.9.1
@@ -866,8 +866,8 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  semver@7.8.1:
-    resolution: {integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==}
+  semver@7.8.5:
+    resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1711,7 +1711,7 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.61.0
       fsevents: 2.3.3
 
-  semver@7.8.1: {}
+  semver@7.8.5: {}
 
   siginfo@2.0.0: {}
 
