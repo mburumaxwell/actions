@@ -28,11 +28,11 @@ importers:
         specifier: 7.7.1
         version: 7.7.1
       prettier:
-        specifier: 3.8.3
-        version: 3.8.3
+        specifier: 3.9.4
+        version: 3.9.4
       prettier-plugin-organize-imports:
         specifier: 4.3.0
-        version: 4.3.0(prettier@3.8.3)(typescript@6.0.3)
+        version: 4.3.0(prettier@3.9.4)(typescript@6.0.3)
       tsup:
         specifier: 8.5.1
         version: 8.5.1(postcss@8.5.16)(typescript@6.0.3)
@@ -843,8 +843,8 @@ packages:
       vue-tsc:
         optional: true
 
-  prettier@3.8.3:
-    resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -1648,12 +1648,12 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier-plugin-organize-imports@4.3.0(prettier@3.8.3)(typescript@6.0.3):
+  prettier-plugin-organize-imports@4.3.0(prettier@3.9.4)(typescript@6.0.3):
     dependencies:
-      prettier: 3.8.3
+      prettier: 3.9.4
       typescript: 6.0.3
 
-  prettier@3.8.3: {}
+  prettier@3.9.4: {}
 
   readdirp@4.1.2: {}
 
